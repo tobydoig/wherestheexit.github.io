@@ -1,0 +1,478 @@
+/* Where's The Exit? — marketing site (wherestheexit.github.io) */
+
+:root {
+  --bg: #0a0f18;
+  --bg-elev: #121a28;
+  --text: #e8eef8;
+  --muted: rgba(180, 210, 255, 0.72);
+  --accent: #7ab0e0;
+  --accent-dim: rgba(122, 176, 224, 0.35);
+  --border: rgba(122, 176, 224, 0.22);
+  /* Matches in-game exit / center accent */
+  --title-orange: #ff6600;
+  --max: 52rem;
+  --radius: 12px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: #a8c8f0;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--title-orange);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+code {
+  font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
+  font-size: 0.88em;
+  background: var(--bg-elev);
+  padding: 0.12em 0.4em;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: var(--bg);
+  z-index: 100;
+}
+
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}
+
+.site-header {
+  padding: 1.75rem 1.25rem 2rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--bg-elev) 0%, var(--bg) 100%);
+}
+
+.site-title {
+  margin: 0;
+  font-size: clamp(1.75rem, 5vw, 2.35rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--title-orange);
+  text-shadow: 0 0 28px rgba(255, 102, 0, 0.28);
+}
+
+.tagline {
+  margin: 0.65rem 0 0;
+  font-size: 1.1rem;
+  color: var(--muted);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  max-width: 28em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-free {
+  margin: 0.85rem 0 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.store-row {
+  margin-top: 1.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: stretch;
+}
+
+/* App Store / Google Play–style badges, tuned to site palette (dark + blue rim + orange “soon”) */
+.store-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 52px;
+  padding: 0.5rem 1rem 0.5rem 0.65rem;
+  border-radius: 10px;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  background: linear-gradient(165deg, #1c2434 0%, #101620 55%, #0d121c 100%);
+  border: 1px solid rgba(122, 176, 224, 0.38);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.35),
+    0 4px 20px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+
+a.store-badge:hover {
+  border-color: rgba(122, 176, 224, 0.65);
+  box-shadow:
+    0 0 0 1px rgba(255, 102, 0, 0.15),
+    0 6px 28px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.store-badge__mark {
+  flex-shrink: 0;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+}
+
+.store-badge--google .store-badge__mark {
+  width: 40px;
+  height: 40px;
+}
+
+.store-badge--apple .store-badge__mark {
+  width: 34px;
+  height: 42px;
+}
+
+.store-badge__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.06rem;
+  line-height: 1.15;
+  min-width: 0;
+}
+
+.store-badge__kicker {
+  font-size: 0.58rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--title-orange);
+  text-shadow: 0 0 12px rgba(255, 102, 0, 0.35);
+}
+
+.store-badge__line {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(232, 238, 248, 0.72);
+}
+
+.store-badge__line--caps {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.store-badge__name {
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: #f2f5fb;
+}
+
+.store-badge--soon {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.92;
+}
+
+main {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 2.25rem 1.25rem 3rem;
+}
+
+.section {
+  margin-bottom: 2.75rem;
+}
+
+.section:last-of-type {
+  margin-bottom: 0;
+}
+
+.section h2 {
+  margin: 0 0 1rem;
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.lead {
+  margin: 0;
+  font-size: 1.12rem;
+  color: var(--muted);
+}
+
+.lead--tight-after {
+  margin-bottom: 1rem;
+}
+
+.feature-list {
+  margin: 1rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--muted);
+}
+
+.feature-list li {
+  margin-bottom: 0.5rem;
+}
+
+.feature-list li:last-child {
+  margin-bottom: 0;
+}
+
+.shot-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.1rem;
+}
+
+@media (min-width: 640px) {
+  .shot-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.figure-shot {
+  margin: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+}
+
+.figure-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.figure-shot figcaption {
+  padding: 0.5rem 0.75rem 0.65rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+
+.video-shell {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  aspect-ratio: 16 / 9;
+}
+
+.video-shell--hero {
+  width: min(100%, 560px);
+  margin: 1.25rem auto 0;
+  box-shadow: 0 8px 36px rgba(0, 0, 0, 0.35);
+  aspect-ratio: 50 / 67;
+}
+
+.video-shell--hero .video-embed {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: contain;
+  background: #071018;
+}
+
+.video-shell iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-embed {
+  border: 0;
+}
+
+/* Non-hero video blocks keep classic 16:9 fill behavior. */
+.video-shell:not(.video-shell--hero) .video-embed {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Keep fullscreen from inheriting cropped fit behavior on some browsers. */
+.video-shell--hero .video-embed:fullscreen,
+.video-shell--hero .video-embed:-webkit-full-screen {
+  object-fit: contain !important;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+}
+
+.video-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.extension {
+  padding: 1.25rem 1rem;
+  border-radius: var(--radius);
+  border: 1px dashed var(--border);
+  background: rgba(18, 26, 40, 0.6);
+}
+
+.extension h2 {
+  margin-bottom: 0.65rem;
+}
+
+.extension p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.site-footer {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 2.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.88rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.site-footer nav {
+  margin-bottom: 0.75rem;
+}
+
+.site-footer a {
+  margin: 0 0.65rem;
+}
+
+.copyright {
+  margin: 0;
+  opacity: 0.85;
+}
+
+/* Privacy policy & compact header */
+.site-header--compact {
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+
+.site-header__crumb {
+  margin: 0 0 0.5rem;
+  font-size: 0.92rem;
+  text-align: center;
+}
+
+.site-header__crumb a {
+  color: var(--muted);
+}
+
+.site-title--compact {
+  font-size: clamp(1.35rem, 4vw, 1.85rem);
+}
+
+.tagline--compact {
+  margin-top: 0.4rem;
+  font-size: 0.98rem;
+}
+
+.policy-main {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.policy-main h2 {
+  margin: 2rem 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.policy-main p {
+  margin: 0 0 1rem;
+}
+
+.policy-main ul {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.policy-main li {
+  margin-bottom: 0.35rem;
+}
+
+.policy-main li:last-child {
+  margin-bottom: 0;
+}
+
+.policy-meta {
+  margin: 2rem 0 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.88rem;
+  color: var(--muted);
+}
