@@ -216,7 +216,8 @@ a.store-badge:hover {
 .store-badge--soon {
   cursor: default;
   pointer-events: none;
-  opacity: 0.92;
+  opacity: 0.50;
+  filter: grayscale()
 }
 
 main {
